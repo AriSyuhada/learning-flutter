@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'quote.dart';
+import 'quote_card.dart';
 
 void main() {
   runApp(const MaterialApp(
@@ -22,8 +23,6 @@ class _QuoteListState extends State<QuoteList> {
     Quote('Altaïr Ibn-La\'Ahad', 'Our Creed does not command us to be free. It commands us to be wise.')
   ];
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,7 +40,14 @@ class _QuoteListState extends State<QuoteList> {
       ),
       body: Column(
         children: quotes.map((quote) {
-          return Text('${quote.text} - ${quote.author}');
+          return QuoteCard(
+            quote: quote,
+            delete: () {
+              setState(() {
+                quotes.remove(quote);
+              });
+            },
+          );
         }).toList(),
       ),
     );
