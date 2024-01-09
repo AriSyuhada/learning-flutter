@@ -7,6 +7,7 @@ class WorldTime {
 
   String location;
   late String time;
+  late int offsetDuration;
   String flag;
   String urlLocation;
   late bool isDayTime;
@@ -23,7 +24,7 @@ class WorldTime {
       
       String datetime = data['datetime'];
       String offset = data['utc_offset'];
-      int offsetDuration = int.parse(offset.substring(1,3));
+      offsetDuration = int.parse(offset.substring(1,3));
       
       DateTime now = DateTime.parse(datetime);
       now = now.add(Duration(hours: offsetDuration));
@@ -36,7 +37,5 @@ class WorldTime {
       print('Caught Error: $e');
       time = 'Caught error while getting Time and Location';
     }
-
   }
-
 }

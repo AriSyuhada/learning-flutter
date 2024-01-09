@@ -36,6 +36,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
       'time': worldTime.time,
       'flag': worldTime.flag,
       'isDayTime': worldTime.isDayTime,
+      'offsetDuration': worldTime.offsetDuration,
     });
   }
 

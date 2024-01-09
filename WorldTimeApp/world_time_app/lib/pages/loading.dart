@@ -22,6 +22,7 @@ class _LoadingState extends State<Loading> {
       'time': worldTime.time,
       'flag': worldTime.flag,
       'isDayTime': worldTime.isDayTime,
+      'offsetDuration': worldTime.offsetDuration,
     });
   }
 

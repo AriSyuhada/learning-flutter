@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -10,14 +13,32 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
 
   Map data = {};
+  late String bgImage;
+  late Color? bgColor;
+
+  @override
+  void initState() {
+    Timer.periodic(const Duration(seconds: 1), (Timer t) => timeTick());
+    super.initState();
+  }
+
+  void timeTick() {
+    DateTime now = DateTime.now().toUtc();
+    now = now.add(Duration(hours: data['offsetDuration']));
+
+    setState(() {
+      data['isDayTime'] = now.hour > 6 && now.hour < 19 ? true : false;
+      data['time'] = DateFormat.jms().format(now);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
 
     data = data.isNotEmpty ? data : ModalRoute.of(context)?.settings.arguments as Map;
 
-    String bgImage = data['isDayTime'] ? 'day.jpg' : 'night.jpg';
-    Color? bgColor = data['isDayTime'] ? Colors.teal[300] : Colors.indigo[900];
+    bgImage = data['isDayTime'] ? 'day.jpg' : 'night.jpg';
+    bgColor = data['isDayTime'] ? Colors.teal[300] : Colors.indigo[900];
 
     return Scaffold(
       backgroundColor: bgColor,
