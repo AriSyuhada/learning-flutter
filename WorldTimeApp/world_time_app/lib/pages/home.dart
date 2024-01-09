@@ -12,13 +12,14 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
 
+  late Timer timer;
   Map data = {};
   late String bgImage;
   late Color? bgColor;
 
   @override
   void initState() {
-    Timer.periodic(const Duration(seconds: 1), (Timer t) => timeTick());
+    timer = Timer.periodic(const Duration(seconds: 1), (Timer t) => timeTick());
     super.initState();
   }
 
@@ -30,6 +31,12 @@ class _HomeState extends State<Home> {
       data['isDayTime'] = now.hour > 6 && now.hour < 19 ? true : false;
       data['time'] = DateFormat.jms().format(now);
     });
+  }
+
+  @override
+  void dispose() {
+    timer.cancel();
+    super.dispose();
   }
 
   @override
@@ -63,6 +70,7 @@ class _HomeState extends State<Home> {
                         'time': result['time'],
                         'flag': result['flag'],
                         'isDayTime': result['isDayTime'],
+                        'offsetDuration': result['offsetDuration'],
                       };
                     });
                   }, 
